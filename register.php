@@ -8,11 +8,29 @@
         $email = $_POST['email'];
         $hash_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        if(password_verify($_POST['confirm_password'], $hash_password)) {
-            echo "Topic";
-        } else {
-            $errors = "Passwords don't match!";
-        }
+        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $user = mysqli_query($conn, $sql);
+
+        var_dump(isset($user['num_rows']));
+
+        // if(password_verify($_POST['confirm_password'], $hash_password) && ($user['num_rows'] > 0)) {
+        //     $sql = "INSERT INTO users (username, email, password)
+        //     VALUES ('$username', '$email', '$hash_password')";
+        //     $result = mysqli_query($conn, $sql);
+
+        //     if($result) {
+        //         header("Location: admin.php");
+        //         exit;
+        //     } else {
+        //         echo "Something went wrong! " . mysqli_error($conn);
+        //     }
+        // } elseif(!password_verify($_POST['confirm_password'], $hash_password) && ($user['num_rows'] <= 1)) {
+        //     $errors = "Passwords don't match and Please enter another username" ;
+        // } elseif(!password_verify($_POST['confirm_password'], $hash_password)) {
+        //     $errors = "Passwords don't match!";
+        // } elseif($user['num_rows'] <= 1) {
+        //     $errors = "Please enter another username";
+        // }
     }
 ?>
 
