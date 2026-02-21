@@ -1,15 +1,22 @@
 <?php
     include "db.php";
 
+    session_start();
+
     $errors = "";
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $sql = "SELECT * FROM users WHERE username = 'dzoni04' LIMIT 1";
+        $sql = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
         $user = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 
+        if(!$user) {
+            $errors = "Something went wrong! " . mysqli_error($conn);
+        }
+
         if($user['username'] === $username && password_verify($password, $user['password'])) {
+            $_SESSION['logged_in'] = true;
             header("Location: admin.php");
             exit;
         } else {
