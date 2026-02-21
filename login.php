@@ -1,7 +1,6 @@
 <?php
     include "db.php";
-
-    session_start();
+    include "partials/navigation.php";
 
     $errors = "";
 
@@ -33,36 +32,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="login">
-   
-    
-    <nav>
-        <ul>
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-    
-            <!-- When the user is logged in -->
-            <li>
-                <a href="admin.html">Admin</a>
-            </li>
-            <li>
-                <a href="logout.html">Logout</a>
-            </li>
-    
-            <!-- When the user is not logged in -->
-            <li>
-                <a href="register.html">Register</a>
-            </li>
-            <li>
-                <a href="login.html">Login</a>
-            </li>
-        </ul>
-    </nav>
-    
-
-    <!-- Include Header and Navigation -->
-    
+<body class="login"> 
     <div class="container">
         <div class="form-container">
             <form method="POST" action="">
