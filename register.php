@@ -11,11 +11,11 @@
         $sql = "SELECT * FROM users WHERE username = '$username'";
         $rows = mysqli_num_rows(mysqli_query($conn, $sql));
 
-        if(!$sql) {
+        if(!$rows) {
             echo "Something went wrong! " . mysqli_error($conn);
         }
 
-        if(password_verify($_POST['confirm_password'], $hash_password) && ($rows < 1)) {
+        if($_POST['password'] === $_POST['confirm_password'] && ($rows < 1)) {
             $sql = "INSERT INTO users (username, email, password)
             VALUES ('$username', '$email', '$hash_password')";
             $result = mysqli_query($conn, $sql);
@@ -26,15 +26,13 @@
             } else {
                 echo "Something went wrong! " . mysqli_error($conn);
             }
-        } elseif(!password_verify($_POST['confirm_password'], $hash_password) && ($rows >= 1)) {
+        } elseif($_POST['password'] === $_POST['confirm_password'] && ($rows >= 1)) {
             $errors = "Passwords don't match and Please enter another username" ;
-        } elseif(!password_verify($_POST['confirm_password'], $hash_password)) {
+        } elseif($_POST['password'] === $_POST['confirm_password']) {
             $errors = "Passwords don't match!";
         } elseif($rows >= 1) {
             $errors = "Please enter another username";
         }
-    } else {
-        echo "Something went wrong!";
     }
 ?>
 
@@ -103,4 +101,6 @@
 </body>
 </html>
 
-<!-- Include Footer -->
+<?php
+    mysqli_close($conn);
+?>

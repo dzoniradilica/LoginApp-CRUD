@@ -5,10 +5,15 @@
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_POST['username'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $result = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'"));
+        $password = $_POST['password'];
+        $result = mysqli_num_rows(mysqli_query($conn,
+        "SELECT * FROM users WHERE username = '$username'"));
+        $hash_password_db = mysqli_fetch_assoc(mysqli_query($conn, 
+        "SELECT password FROM users WHERE username = '$username' LIMIT 1"));
 
-        var_dump($result);
+        if($result === 1 && password_verify($password, $hash_password_db['password'])) {
+            echo "Radi";
+        }
     }
 ?>
 
@@ -75,3 +80,7 @@
 
 </body>
 </html>
+
+<?php
+    mysqli_close($conn);
+?>
