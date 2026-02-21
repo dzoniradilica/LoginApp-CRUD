@@ -6,13 +6,14 @@
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $result = mysqli_num_rows(mysqli_query($conn,
-        "SELECT * FROM users WHERE username = '$username'"));
-        $hash_password_db = mysqli_fetch_assoc(mysqli_query($conn, 
-        "SELECT password FROM users WHERE username = '$username' LIMIT 1"));
+        $sql = "SELECT * FROM users WHERE username = 'dzoni04' LIMIT 1";
+        $user = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 
-        if($result === 1 && password_verify($password, $hash_password_db['password'])) {
-            echo "Radi";
+        if($user['username'] === $username && password_verify($password, $user['password'])) {
+            header("Location: admin.php");
+            exit;
+        } else {
+            $errors = "Invalid username or password!";
         }
     }
 ?>
@@ -62,7 +63,7 @@
     
                 <!-- Error message placeholder -->
                 <p style="color:red">
-                    <!-- Error message goes here -->
+                    <?php echo $errors; ?>
                 </p>
     
                 <label for="username">Username:</label><br>
