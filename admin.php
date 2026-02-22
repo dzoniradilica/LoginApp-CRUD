@@ -7,18 +7,21 @@
         redirect("login.php");
     }
 
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+        if(isset($_POST['edit_user'])) {
+            update_user($_POST['user_id'], $_POST['email']);
+        }
+
+        if(isset($_POST['delete_user'])) {
+            delete_user($_POST['user_id']);
+        }
+    }
+
     $sql = "SELECT * FROM users";
     $users = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
 
-    if(!$users) {
+    if(!$sql) {
         echo "Something went wrong! " . mysqli_error($conn);
-    }
-
-    if($_SERVER['REQUEST_METHOD'] == "POST") {
-        $user_id = $_POST['user_id'];
-        $email = $_POST['email'];
-
-        var_dump($user_id, $email);
     }
 ?>
 

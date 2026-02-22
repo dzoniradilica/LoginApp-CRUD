@@ -17,7 +17,7 @@
         $sql = "SELECT * FROM users WHERE username = '$username'";
         $rows = mysqli_num_rows(mysqli_query($conn, $sql));
 
-        if(!$rows) {
+        if(!$sql) {
             echo "Something went wrong! " . mysqli_error($conn);
         }
 
