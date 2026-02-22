@@ -11,4 +11,10 @@
         header("Location: $path");
         exit;
     }
+
+    function transform_date($db_date) {
+        $date = new DateTime($db_date);
+
+        echo date_format($date, "d M Y");
+    }
 ?>

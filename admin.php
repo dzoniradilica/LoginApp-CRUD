@@ -1,13 +1,14 @@
 <?php
     include "db.php";
     include "partials/navigation.php";
+    include_once "functions.php";
 
     if(!isset($_SESSION['logged_in'])) {
         redirect("login.php");
     }
 
     $sql = "SELECT * FROM users";
-    $users = mysqli_fetch_all(mysqli_query($conn, $sql));
+    $users = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +40,10 @@
         <tbody>
             <?php foreach($users as $user): ?>
                 <tr>
-                    <?php var_dump($user) ?>
+                    <td> <?php echo $user['id']; ?> </td>
+                    <td> <?php echo $user['username']; ?> </td>
+                    <td> <?php echo $user['email']; ?> </td>
+                    <td> <?php transform_date($user['reg_date']); ?> </td>
                     <td>
                         <form method="POST" style="display:inline-block;">
                             <input type="hidden" name="user_id" value="1">
