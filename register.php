@@ -21,11 +21,11 @@
             create_user($username, $email, $hash_password);
         }
 
-        if($_POST['password'] === $_POST['confirm_password'] && ($rows >= 1)) {
+        if($_POST['password'] !== $_POST['confirm_password'] && ($rows >= 1)) {
             $errors = "Passwords don't match and Please enter another username" ;
         }
 
-        if($_POST['password'] === $_POST['confirm_password']) {
+        if($_POST['password'] !== $_POST['confirm_password']) {
             $errors = "Passwords don't match!";
         }
 

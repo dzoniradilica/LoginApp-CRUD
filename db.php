@@ -9,7 +9,8 @@
     if($conn) {
         // echo "Connect";
     } else {
-        echo "Error";
+        global $conn;
+        echo mysqli_error($conn);
     }
 
     function get_user($username) {
@@ -17,7 +18,7 @@
         $sql = "SELECT * FROM users WHERE username = '$username'";
         $rows = mysqli_num_rows(mysqli_query($conn, $sql));
 
-        if(!$sql) {
+        if(!$rows) {
             echo "Something went wrong! " . mysqli_error($conn);
         }
 
@@ -28,10 +29,6 @@
         global $conn;
         $sql = "SELECT * FROM users";
         $users = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
-
-        if(!$sql) {
-            echo "Something went wrong! " . mysqli_error($conn);
-        }
 
         return $users;
     }

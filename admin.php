@@ -11,10 +11,14 @@
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         if(isset($_POST['edit_user'])) {
             update_user($_POST['user_id'], $_POST['email']);
+            $_SESSION['message'] = "User edited successfully!";
+            $_SESSION['message_class'] = "success";
         }
 
         if(isset($_POST['delete_user'])) {
             delete_user($_POST['user_id']);
+            $_SESSION['message'] = "User deleted successfully!";
+            $_SESSION['message_class'] = "error";
         }
     }
 
@@ -23,6 +27,10 @@
 <h1>Manage Users</h1>
 
 <div class="container">
+    <?php if(isset($_SESSION['message'])): ?>
+        <p class="notification <?php echo $_SESSION['message_class']; ?>"><?php echo $_SESSION['message']; ?></p>
+    <?php endif; ?>
+
     <table class="user-table">
         <thead>
         <tr>
