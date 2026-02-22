@@ -1,5 +1,6 @@
 <?php
     include "db.php";
+    include "partials/header.php";
     include "partials/navigation.php";
     include_once "functions.php";
 
@@ -22,35 +23,22 @@
         }
 
         if($_POST['password'] === $_POST['confirm_password'] && ($rows < 1)) {
-            $sql = "INSERT INTO users (username, email, password)
-            VALUES ('$username', '$email', '$hash_password')";
-            $result = mysqli_query($conn, $sql);
+            create_user($username, $email, $hash_password);
+        }
 
-            if($result) {
-                $_SESSION['logged_in'] = true;
-                redirect("admin.php");
-            } else {
-                echo "Something went wrong! " . mysqli_error($conn);
-            }
-        } elseif($_POST['password'] === $_POST['confirm_password'] && ($rows >= 1)) {
+        if($_POST['password'] === $_POST['confirm_password'] && ($rows >= 1)) {
             $errors = "Passwords don't match and Please enter another username" ;
-        } elseif($_POST['password'] === $_POST['confirm_password']) {
+        }
+
+        if($_POST['password'] === $_POST['confirm_password']) {
             $errors = "Passwords don't match!";
-        } elseif($rows >= 1) {
+        }
+
+        if($rows >= 1) {
             $errors = "Please enter another username";
         }
     }
 ?>
-
-<!-- Include Header -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
 
 <body class="register">
 <div class="container">
@@ -79,9 +67,8 @@
         </form>
     </div>
 </div>
-    
-</body>
-</html>
+
+<?php include "partials/footer.php"; ?>
 
 <?php
     mysqli_close($conn);

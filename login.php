@@ -1,5 +1,6 @@
 <?php
     include "db.php";
+    include "partials/header.php";
     include "partials/navigation.php";
 
     if(isset($_SESSION['logged_in'])) {
@@ -14,11 +15,13 @@
         $sql = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
         $user = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 
+        var_dump($user);
+
         if(!$user) {
             $errors = "Something went wrong! " . mysqli_error($conn);
         }
 
-        if($user['username'] === $username && password_verify($password, $user['password'])) {
+        if(isset($user['username']) === $username && password_verify($password, isset($user['password']))) {
             $_SESSION['logged_in'] = true;
             redirect("admin.php");
         } else {
@@ -57,10 +60,7 @@
         </div>
     </div>
     
-    <!-- Include Footer -->
-
-</body>
-</html>
+<?php include "partials/footer.php" ?>
 
 <?php
     mysqli_close($conn);

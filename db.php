@@ -12,6 +12,20 @@
         echo "Error";
     }
 
+    function create_user($username, $email, $hash_password) {
+        global $conn;
+        $sql = "INSERT INTO users (username, email, password)
+        VALUES ('$username', '$email', '$hash_password')";
+        $result = mysqli_query($conn, $sql);
+
+        if($result) {
+            $_SESSION['logged_in'] = true;
+            redirect("admin.php");
+        } else {
+            echo "Something went wrong! " . mysqli_error($conn);
+        }
+    }
+
     function update_user($user_id, $email) {
         global $conn;
         $sql = "UPDATE users SET email = '$email' WHERE id = $user_id";

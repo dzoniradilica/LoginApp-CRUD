@@ -1,5 +1,6 @@
 <?php
     include "db.php";
+    include "partials/header.php";
     include "partials/navigation.php";
     include_once "functions.php";
 
@@ -24,20 +25,6 @@
         echo "Something went wrong! " . mysqli_error($conn);
     }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Users</title>
-    <link rel="stylesheet" href="css/style.css">
-
-    <link rel="stylesheet" href="css/admin.css">
-
-</head>
-<body class="admin">
-
 <h1>Manage Users</h1>
 
 <div class="container">
@@ -75,6 +62,4 @@
     </table>
 </div>
 
-<!-- Include Footer -->
-</body>
-</html>
+<?php include "partials/footer.php" ?>

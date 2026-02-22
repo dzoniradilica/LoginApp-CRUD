@@ -1,16 +1,7 @@
 <?php
-   include "partials/navigation.php";
+    include "partials/header.php";
+    include "partials/navigation.php";
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body class="index">
 <div class="container">
 <div class="hero">
     <div class="hero-content">
@@ -23,6 +14,4 @@
     </div>
 </div>
 </div>
-    
-</body>
-</html>
+<?php include "partials/footer.php"; ?>
