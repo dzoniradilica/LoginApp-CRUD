@@ -1,6 +1,11 @@
 <?php
     include "db.php";
     include "partials/navigation.php";
+    include_once "functions.php";
+
+    if(isset($_SESSION['logged_in'])) {
+        redirect("admin.php");
+    }
 
     $errors = "";
 
@@ -23,8 +28,7 @@
 
             if($result) {
                 $_SESSION['logged_in'] = true;
-                header("Location: admin.php");
-                exit;
+                redirect("admin.php");
             } else {
                 echo "Something went wrong! " . mysqli_error($conn);
             }

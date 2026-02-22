@@ -2,6 +2,10 @@
     include "db.php";
     include "partials/navigation.php";
 
+    if(isset($_SESSION['logged_in'])) {
+        redirect("admin.php");
+    }
+
     $errors = "";
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -16,8 +20,7 @@
 
         if($user['username'] === $username && password_verify($password, $user['password'])) {
             $_SESSION['logged_in'] = true;
-            header("Location: admin.php");
-            exit;
+            redirect("admin.php");
         } else {
             $errors = "Invalid username or password!";
         }
