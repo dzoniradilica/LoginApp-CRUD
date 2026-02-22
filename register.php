@@ -15,12 +15,7 @@
         $email = $_POST['email'];
         $hash_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        $sql = "SELECT * FROM users WHERE username = '$username'";
-        $rows = mysqli_num_rows(mysqli_query($conn, $sql));
-
-        if(!$sql) {
-            echo "Something went wrong! " . mysqli_error($conn);
-        }
+        $rows = get_user($username);
 
         if($_POST['password'] === $_POST['confirm_password'] && ($rows < 1)) {
             create_user($username, $email, $hash_password);

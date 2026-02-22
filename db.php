@@ -12,6 +12,30 @@
         echo "Error";
     }
 
+    function get_user($username) {
+        global $conn;
+        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $rows = mysqli_num_rows(mysqli_query($conn, $sql));
+
+        if(!$sql) {
+            echo "Something went wrong! " . mysqli_error($conn);
+        }
+
+        return $rows;
+    }
+
+    function get_users() {
+        global $conn;
+        $sql = "SELECT * FROM users";
+        $users = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
+
+        if(!$sql) {
+            echo "Something went wrong! " . mysqli_error($conn);
+        }
+
+        return $users;
+    }
+
     function create_user($username, $email, $hash_password) {
         global $conn;
         $sql = "INSERT INTO users (username, email, password)

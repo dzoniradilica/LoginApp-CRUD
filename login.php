@@ -15,13 +15,11 @@
         $sql = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
         $user = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 
-        var_dump($user);
-
         if(!$user) {
             $errors = "Something went wrong! " . mysqli_error($conn);
         }
 
-        if(isset($user['username']) === $username && password_verify($password, isset($user['password']))) {
+        if($user['username'] ?? "" === $username && password_verify($password, $user['password'] ?? "")) {
             $_SESSION['logged_in'] = true;
             redirect("admin.php");
         } else {

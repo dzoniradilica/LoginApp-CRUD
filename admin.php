@@ -18,12 +18,7 @@
         }
     }
 
-    $sql = "SELECT * FROM users";
-    $users = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
-
-    if(!$sql) {
-        echo "Something went wrong! " . mysqli_error($conn);
-    }
+    $users = get_users();
 ?>
 <h1>Manage Users</h1>
 
